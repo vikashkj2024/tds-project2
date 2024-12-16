@@ -69,7 +69,7 @@ output_buffer.close()
 #print(analysis_output)
 
 
-'''
+
 response_analyze = requests.post(
         "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
         headers={"Authorization": f"Bearer {api_key}"},
@@ -98,11 +98,6 @@ with open("./%s/README.md" % directory_name,"w") as readme_file:
     readme_file.write(analysis_text)
 
 print("Analysis saved to README.md.")
-'''
-#Remove or Encode Non-numeric data
-#df_numeric = df.select_dtypes(include=[float, int])
-
-#Convert non-numeric columsn to numeric
 
 
 
