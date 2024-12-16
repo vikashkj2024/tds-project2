@@ -8,15 +8,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import io
 
+#Loading the key from environment variable
 load_dotenv()
 api_key = os.getenv("api_key")
 
+#Checking for arguments passed to the script
 if len(sys.argv) < 2:
-	print("Usage: python3 autolysis-v2.py <path_to_csv>")
+	print("Usage: uv run autolysis-v2.py <path_to_csv>")
 	sys.exit(1)
 
+#Parsing the name of the directory to be created from the csv's name
 datasetCSV = sys.argv[1]
 directory_name = datasetCSV.split('.')[0]
+
+#Reading the data from the csv into pandas dataframe
 try:
     df = pd.read_csv(datasetCSV, encoding='latin1')
 except UnicodeDecodeError:
@@ -64,7 +69,7 @@ output_buffer.close()
 #print(analysis_output)
 
 
-
+'''
 response_analyze = requests.post(
         "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
         headers={"Authorization": f"Bearer {api_key}"},
@@ -93,9 +98,9 @@ with open("./%s/README.md" % directory_name,"w") as readme_file:
     readme_file.write(analysis_text)
 
 print("Analysis saved to README.md.")
-
+'''
 #Remove or Encode Non-numeric data
-df_numeric = df.select_dtypes(include=[float, int])
+#df_numeric = df.select_dtypes(include=[float, int])
 
 #Convert non-numeric columsn to numeric
 
@@ -107,7 +112,7 @@ df_numeric = df.select_dtypes(include=[float, int])
 sns.set(style="whitegrid")
 
 plt.figure(figsize=(12, 10))  # Increase figure size for better visibility
-heatmap = sns.heatmap(df_numeric.corr(), annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
+heatmap = sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
 plt.title("Correlation Heatmap", fontsize=16)  # Add a larger title for better aesthetics
 plt.xticks(rotation=45, ha='right', fontsize=10)  # Rotate x-axis labels for readability
 plt.yticks(fontsize=10)  # Adjust y-axis label font size
@@ -117,7 +122,7 @@ plt.close()
 
 
 # Example Visualization: Pairplot
-sns.pairplot(df_numeric, diag_kind='kde')
+sns.pairplot(numeric_df, diag_kind='kde')
 plt.savefig("./%s/pairplot.png" % directory_name)
 plt.close()
 
