@@ -105,11 +105,6 @@ df_numeric = df.select_dtypes(include=[float, int])
 # Example Visualization: Correlation Heatmap
 
 sns.set(style="whitegrid")
-#plt.figure(figsize=(10, 8))
-#heatmap = sns.heatmap(df_numeric.corr(), annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
-#plt.title("Correlation Heatmap")
-#plt.savefig("./%s/correlation_heatmap.png" % directory_name)
-#plt.close()
 
 plt.figure(figsize=(12, 10))  # Increase figure size for better visibility
 heatmap = sns.heatmap(df_numeric.corr(), annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
@@ -122,8 +117,8 @@ plt.close()
 
 
 # Example Visualization: Pairplot
-#sns.pairplot(df_numeric, diag_kind='kde')
-#plt.savefig("./%s/pairplot.png" % directory_name)
-#plt.close()
+sns.pairplot(df_numeric, diag_kind='kde')
+plt.savefig("./%s/pairplot.png" % directory_name)
+plt.close()
 
 #print("Visualizations saved as PNG files.")
